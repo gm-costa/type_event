@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block 'head' %}
-<link href="{% static 'usuario/css/usuario.css' %}" rel="stylesheet">
+    <link href="{% static 'usuario/css/usuario.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block 'body' %}
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md">
                 <h3 class="logo">Type.Event</h3>
-                {% include "parcial/usuario/cadastro.html" %}
+                {% include 'parcial/usuario/login.html' %}
                 <img src="{% static 'base/img/logo.png' %}" class="logo-evento">
             </div>
 
@@ -21,7 +21,6 @@
             </div>
         
         </div>
-
     </div>
 
 {% endblock %}

@@ -1,0 +1,35 @@
+<div class="box-form">
+    <h3>CADASTRO</h3>
+    <hr style="border-color: #7E7B7C">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{message.tags}} text-center mb-3">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form action="{% url 'cadastro' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Usuário:</label> 
+            <input type="text" class="form-control" placeholder="Usuário..." name="username" value={{username}}>
+        </div>
+        <div class="mb-3">
+            <label>E-mail:</label>
+            <input type="email" class="form-control" placeholder="E-mail..." name="email" value={{email}}>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md">
+                <label>Senha:</label>
+                <input type="password" class="form-control" placeholder="Senha..." name="senha" value={{senha}}>
+            </div>
+
+            <div class="col-md">
+                <label>Confirmar senha:</label>
+                <input type="password" class="form-control" placeholder="Confirmar senha..." name="confirmar_senha" value={{confirmar_senha}}>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <input type="submit" value="CADASTRAR" class="btn-principal">
+            <a href="{% url 'logar' %}" class="link">Já possuo uma conta</a>
+        </div>
+    </form>
+</div>
