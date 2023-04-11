@@ -3,7 +3,7 @@
     <hr class="linha">
     {% if messages %}
         {% for message in messages %}
-            <div class="alert {{message.tags}} text-center mb-3">{{ message }}</div>
+            <div class="alert {{message.tags}} text-center py-2 mb-3">{{ message }}</div>
         {% endfor %}
     {% endif %}
     <form action="{% url 'cadastro' %}" method="POST">
@@ -16,7 +16,7 @@
             <label>E-mail:</label>
             <input type="email" class="form-control" placeholder="E-mail..." name="email" value={{email}}>
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <div class="col-md">
                 <label>Senha:</label>
                 <input type="password" class="form-control" placeholder="Senha..." name="senha" value={{senha}}>
@@ -27,7 +27,7 @@
                 <input type="password" class="form-control" placeholder="Confirmar senha..." name="confirmar_senha" value={{confirmar_senha}}>
             </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="d-flex justify-content-between align-items-center">
             <input type="submit" value="CADASTRAR" class="btn-principal">
             <a href="{% url 'logar' %}" class="link">Já possuo uma conta</a>
         </div>

@@ -23,22 +23,23 @@ def cadastro(request):
         }
 
         if len(username) == 0 or len(email) == 0 or len(senha) == 0:
-            messages.add_message(request, messages.WARNING, 'Todos os campos são obrigatórios!')
+            messages.add_message(request, messages.INFO, 'Todos os campos são obrigatórios!')
             # return redirect(reverse('cadastro'))
             return render(request, 'cadastro.html', context)
 
         if not (senha == confirmar_senha):    
-            messages.add_message(request, messages.WARNING, 'Senhas diferentes!')
+            messages.add_message(request, messages.ERROR, 'Senhas diferentes!')
             return render(request, 'cadastro.html', context)
         
         user = User.objects.filter(username=username)
 
         if user.exists():
-            messages.add_message(request, messages.WARNING, 'Usuário já cadastrado!')
+            messages.add_message(request, messages.INFO, 'Usuário já cadastrado!')
             return render(request, 'cadastro.html', context)  
         
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
+        messages.add_message(request, messages.SUCCESS, 'Usuário cadastrado com sucesso.')
         return redirect(reverse('logar'))
 
 def logar(request):
@@ -51,7 +52,7 @@ def logar(request):
         user = authenticate(username=username, password=senha)
 
         if not user:
-            messages.add_message(request, messages.ERROR, 'Usuário ou senha inválidos')
+            messages.add_message(request, messages.ERROR, 'Usuário ou senha inválidos!')
             return render(request, 'login.html', {'username': username, 'senha': senha})
         
         login(request, user)
