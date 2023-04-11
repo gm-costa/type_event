@@ -1,23 +1,22 @@
-.bg-inscricao{
-
+.bg-inscricao {
     height: 100vh;
     background-color: var(--dark-color);
     padding-left: 1%;
 }
 
-.bg-img{
-    background-image: url('/static/usuarios/img/bg.png');
+.bg-img {
+    background-image: url('/static/usuario/img/bg.png');
     height: 100vh;
     background-size: cover;
     color: #14e9e9
 }
 
-.logo{
+.logo {
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 40px;
 }
 
-.box-form{
+.box-form {
     width: 70%;
     background-color: var(--main-color);
     margin: auto;
@@ -28,13 +27,12 @@
     height: 65vh;
 }
 
-.link{
+.link {
     color: var(--differential-color);
     text-decoration: none;
 }
 
-.btn-principal{
-    
+.btn-principal {
     background-color: transparent;
     border: 1px solid var(--contrast-color);
     color: white;
@@ -43,9 +41,13 @@
     font-weight: bold;
 }
 
-.logo-evento{
-
+.logo-evento {
     position: fixed;
     bottom: 20px;
+}
 
+.linha {
+    /* border: 1px solid #7E7B7C; */
+    border-color: #7E7B7C;
+    margin-top: 0;
 }

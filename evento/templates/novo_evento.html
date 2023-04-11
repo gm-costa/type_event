@@ -1,0 +1,64 @@
+{% extends "base/base_evento.html" %}
+
+{% block 'conteudo' %}
+    <div class="container pt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} text-center p-2 mb-3">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'novo' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row gap-4">
+                <div class="col-md-7 mt-5">
+                    <h3>Novo evento</h3>
+                        <div class="mb-3">
+                            <label>Nome evento</label>
+                            <input type="text" name="nome" class="form-control" placeholder="Nome...">
+                        </div>
+                        <div class="mb-3">
+                            <label>Descrição</label>
+                            <textarea name="descricao" class="form-control" placeholder="Descrição..."></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <label>Data início</label>
+                                <input type="date" name="data_inicio" class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <label>Data término</label>
+                                <input type="date" name="data_termino" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Carga horária (em horas)</label>
+                            <input type="number" name="carga_horaria" class="form-control" placeholder="X horas">
+                        </div>
+                        <div class="mb-3">
+                            <label>Logo do evento</label>
+                            <input type="file" name="logo" class="form-control">
+                        </div>
+                </div>
+
+                <div style="z-index: 99999" class="col-md mt-5">
+                    <h3>Paleta de cores</h3>
+                    <div class="d-flex flex-column gap-3 my-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <input type="color" name="cor_principal" value="#15773b">
+                            <span>Cor principal</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <input type="color" name="cor_secundaria" value="#14e9e9">
+                            <span>Cor secundária</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <input type="color" name="cor_fundo" value="#020202">
+                            <span>Cor de fundo</span>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn-principal btn-novo-evento mb-4" value="Criar evento">
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

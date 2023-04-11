@@ -55,5 +55,10 @@ def logar(request):
             return render(request, 'login.html', {'username': username, 'senha': senha})
         
         login(request, user)
-        return HttpResponse('logado')
-        return redirect('/eventos/novo_evento/')
+        # return HttpResponse('logado')
+        return redirect('/eventos/novo/')
+
+
+def sair(request):
+    logout(request)
+    return redirect(reverse('logar'))
