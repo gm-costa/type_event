@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/', include('usuario.urls')),
-    path('eventos/', include('evento.urls')),
-]
+    path('usuario/', include('usuario.urls')),
+    path('evento/', include('evento.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

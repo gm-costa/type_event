@@ -1,0 +1,111 @@
+{% extends 'base/base_evento.html' %}
+{% load static %}
+
+{% block 'head_extra' %}
+    <link rel="stylesheet" href="{% static 'evento/css/lista.css' %}">
+{% endblock %}
+
+{% block 'conteudo' %}
+
+<div class="container pt-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} text-center p-2 mb-3">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'lista_eventos' %}" method="GET">
+        <div class="form-grid">
+            <input type="text" placeholder="Nome..." value="{% if nome %}{{nome}}{% endif %}" name="nome" class="form-control  form-control-sm py-0" autofocus>
+            <input type="date" value="{% if data %}{{data}}{% endif %}" name="data" class="form-control form-control-sm py-0">
+
+            <select class="form-select form-select-sm py-0" name="status">
+                <option value="">Selecione o status...</option>
+                {% for key, value in lista_status.items %}
+                    <option value="{{key}}"  {% if key == status %} selected {% endif %}>{{value}}</option>
+                {% endfor%}   
+            </select>
+
+            <button class="btn btn-outline-secondary border-0 opacity-50" id="btnRemoveFiltro" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Desfazer filtro"><i class="bi bi-arrow-counterclockwise"></i></button>
+
+            <input type="submit" class="btn-principal p-0" value="FILTRAR">
+        </div>
+    </form>
+    <!--
+    <table class="table table-borderless table-striped table-hover table-sm text-center text-white mt-4">
+    -->
+    <table class="table table-borderless table-sm text-center text-white mt-4">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Início</th>
+                <th>Término</th>
+                <th>Carga Horária</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos%}
+                <tr class="tabela-linha">
+                    <td width="10%" class="img-evento">
+                        <a href="{% url 'ver_evento' evento.id %}"><img width="40%" src="/media/{{evento.logo}}"></a>
+                    </td>
+                    <td>
+                        {{evento.nome}}
+                    </td>
+                    <td>
+                        {{evento.descricao}}
+                    </td>
+                    <td>
+                        {{evento.data_inicio}}
+                    </td>
+                    <td>
+                        {{evento.data_termino}}
+                    </td>
+                    <td>
+                        {{evento.carga_horaria}}h
+                    </td>
+                    <td>
+                        {% if evento.status == "I" %}
+                            <span class="badge text-bg-primary">Inicializado</span>
+                        {% elif evento.status == "F" %}
+                            <span class="badge text-bg-success">Finalizado</span>
+                        {% endif%}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+</div>
+
+{% endblock  %}
+
+{% block 'script' %}
+    <script>
+
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        const btnRemFiltro = document.getElementById('btnRemoveFiltro');
+        const inputNome = document.querySelector('input[name=nome]');
+        const inputData = document.querySelector('input[name=data]');
+        const inputStatus = document.querySelector('select[name=status]');
+        const btnFiltar = document.querySelector('input[type=submit]');
+
+        btnRemFiltro.addEventListener('click', (e) => {
+
+            e.preventDefault();
+
+            inputNome.value = "";
+            inputData.value = "";
+            inputStatus.value = "";
+            btnFiltar.click();
+
+        });
+
+    </script>
+{% endblock  %}

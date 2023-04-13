@@ -3,9 +3,9 @@
 
 {% block 'head' %}
 
-    {% block 'importacoes' %}{% endblock %}
     <link href="{% static 'evento/css/evento.css' %}" rel="stylesheet">
     <link href="{% static 'usuario/css/usuario.css' %}" rel="stylesheet">
+    {% block 'head_extra' %}{% endblock %}
 
 {% endblock %}
 
@@ -23,8 +23,8 @@
                             Empresa
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">Criar novo evento</a></li>
-                            <li><a class="dropdown-item" href="">Gerenciar eventos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'novo_evento' %}">Criar novo evento</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lista_eventos' %}">Gerenciar eventos</a></li>
                         </ul>
                     </li>
                     

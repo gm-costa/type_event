@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .utils import verificar_forca_senha
 
 
 def cadastro(request):
@@ -31,6 +32,13 @@ def cadastro(request):
             messages.add_message(request, messages.ERROR, 'Senhas diferentes!')
             return render(request, 'cadastro.html', context)
         
+        if len(senha) > 20:    
+            messages.add_message(request, messages.ERROR, 'A senha deve ter no máximo 20 caracteres!')
+            return render(request, 'cadastro.html', context)
+        
+        #TODO: Validar força da senha
+        forca_senha = verificar_forca_senha(senha)
+        
         user = User.objects.filter(username=username)
 
         if user.exists():
@@ -39,7 +47,7 @@ def cadastro(request):
         
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
-        messages.add_message(request, messages.SUCCESS, 'Usuário cadastrado com sucesso.')
+        messages.add_message(request, messages.SUCCESS, f'Usuário cadastrado com sucesso {forca_senha}.')
         return redirect(reverse('logar'))
 
 def logar(request):
@@ -56,9 +64,7 @@ def logar(request):
             return render(request, 'login.html', {'username': username, 'senha': senha})
         
         login(request, user)
-        # return HttpResponse('logado')
-        return redirect('/eventos/novo/')
-
+        return redirect(reverse('lista_eventos'))
 
 def sair(request):
     logout(request)

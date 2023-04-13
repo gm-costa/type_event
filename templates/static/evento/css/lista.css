@@ -1,0 +1,19 @@
+.form-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto 40px auto;
+    gap: 1rem;
+}
+
+.tabela-linha {
+    /* background-color:#7E7B7C; */
+    background-color:#3f3737;
+    border-bottom: 1px solid var(--dark-color);
+    text-align: left;
+    font-weight:300;
+}
+
+/* .tabela-linha > td:nth-child(1) {
+    text-align: left;
+    padding: 0;
+} */
