@@ -9,11 +9,11 @@
 
     <form action="{% url 'logar' %}" method="POST">{% csrf_token %}
         <div class="mb-3">
-            <label>Usuário:</label>
+            <label class="form-label">Usuário:</label>
             <input type="text" class="form-control" placeholder="Usuário..." name="username" value={{username}}>
         </div>
         <div class="mb-4">
-            <label>Senha</label>
+            <label class="form-label">Senha</label>
             <input type="password" class="form-control" placeholder="Senha..." name="senha" value={{senha}}>
         </div>
         <div class="d-flex justify-content-between align-items-center">

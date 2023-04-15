@@ -24,7 +24,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'novo_evento' %}">Criar novo evento</a></li>
-                            <li><a class="dropdown-item" href="{% url 'lista_eventos' %}">Gerenciar eventos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lista_todos' %}">Gerenciar eventos</a></li>
                         </ul>
                     </li>
                     
@@ -33,14 +33,28 @@
                             Cliente
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">Meus eventos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lista_meus_eventos' %}">Meus eventos</a></li>
                             <li><a class="dropdown-item" href="">Meus certificados</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lista_minhas_participacoes' %}">Minhas participações</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lista_terceiros' %}">Eventos de terceiros</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form action="{% url 'sair' %}">
-                    <button class="btn btn-outline-secondary" type="submit">Sair</button>
-                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="">Usuário: &nbsp;<strong>{{request.user}}</strong></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'sair' %}">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% comment %} <form action="{% url 'sair' %}">
+                    <button class="btn btn-sair" type="submit">Sair</button>
+                </form> {% endcomment %}
             </div>
         </div>
     </nav>

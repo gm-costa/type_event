@@ -9,25 +9,43 @@
     <form action="{% url 'cadastro' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-            <label>Usuário:</label> 
+            <label class="form-label">Usuário:</label> 
             <input type="text" class="form-control" placeholder="Usuário..." name="username" value={{username}}>
         </div>
         <div class="mb-3">
-            <label>E-mail:</label>
+            <label class="form-label">E-mail:</label>
             <input type="email" class="form-control" placeholder="E-mail..." name="email" value={{email}}>
         </div>
-        <div class="row mb-4">
+        <div class="row">
             <div class="col-md">
-                <label>Senha:</label>
+                <label class="form-label">Senha:</label>
+                <span class="ms-2"></span>
+                <!--
                 <input type="password" class="form-control" placeholder="Senha..." name="senha" value={{senha}}>
+                -->
+                <input type="text" class="form-control" placeholder="Senha..." name="senha" value={{senha}}>
             </div>
-
             <div class="col-md">
-                <label>Confirmar senha:</label>
+                <label class="form-label">Confirmar senha:</label>
+                <span class="ms-2"></span>
                 <input type="password" class="form-control" placeholder="Confirmar senha..." name="confirmar_senha" value={{confirmar_senha}}>
             </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="progress-stacked bg-transparent mt-4">
+            <div class="progress bg-transparent" role="progressbar" aria-label="Segment one" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25" style="width: 100%">
+                <div class="progress-bar bg-danger bg-transparent"></div>
+            </div>
+            <div class="progress bg-transparent" role="progressbar" aria-label="Segment two" aria-valuenow="50" aria-valuemin="25" aria-valuemax="50" style="width: 100%">
+                <div class="progress-bar bg-warning bg-transparent"></div>
+            </div>
+            <div class="progress bg-transparent" role="progressbar" aria-label="Segment three" aria-valuenow="75" aria-valuemin="50" aria-valuemax="75" style="width: 100%">
+                <div class="progress-bar bg-info bg-transparent"></div>
+            </div>
+            <div class="progress bg-transparent" role="progressbar" aria-label="Segment three" aria-valuenow="100" aria-valuemin="75" aria-valuemax="100" style="width: 100%">
+                <div class="progress-bar bg-success bg-transparent"></div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
             <input type="submit" value="CADASTRAR" class="btn-principal">
             <a href="{% url 'logar' %}" class="link">Já possuo uma conta</a>
         </div>

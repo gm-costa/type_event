@@ -41,6 +41,13 @@
     font-weight: bold;
 }
 
+.btn-principal:disabled,
+.link:disabled {
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666;
+}
+
 .logo-evento {
     position: fixed;
     bottom: 20px;

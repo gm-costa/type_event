@@ -1,0 +1,70 @@
+{% extends "base/base_evento.html" %}
+{% load static %}
+
+{% block 'importacoes' %}
+    <link href="{% static 'evento/css/evento.css' %}" rel="stylesheet">
+    <link href="{% static 'evento/css/lista.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block 'conteudo' %}
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <img width="100%" src="{{evento.logo.url}}">
+                <h3 class="mt-4">{{evento.nome}}</h3> 
+            </div>
+            <div class="col-md">
+                <div class="row flex-column gap-4">
+                    <div class="col-md-2">
+                        <span class="badge rounded-pill text-bg-danger p-2" style="width: 120px;"><a class="link text-warning fs-6" href="{% url 'participantes_evento' evento.id %}">Participantes</a></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="badge rounded-pill text-bg-danger p-2" style="width: 120px;"><a class="link text-warning fs-6" href="">Certificados</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} text-center p-2 my-3">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <hr class="mt-0">
+
+        <div class="row">
+            <h5 class="opacity-75 mb-3">{{evento.participantes.all.count}}&nbsp;Participantes</h5>
+            
+            <div class="col-md-4">
+                <table class="table table-borderless">
+                    <thead class="text-center text-white opacity-75">
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-dark">
+                        {% for participante in participantes %}
+                        <tr class="tabela-linha text-white opacity-75">
+                            <td>{{participante.username}}</td>
+                            <td>{{participante.email}}</td>
+                        </tr>
+                        {% endfor %}       
+                    </tbody>
+                </table>
+                <br>
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <p>{{participantes.all.count}} &nbsp;de &nbsp;{{evento.participantes.all.count}}</p>
+                    </div>
+                    <div>
+                        <a href="{% url 'exportar_csv' evento.id %}" class="btn-principal text-decoration-none">Exportar em CSV</a>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+        
+    </div>
+
+{% endblock %}
