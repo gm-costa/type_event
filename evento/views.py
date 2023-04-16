@@ -270,3 +270,17 @@ def gerar_certificado(request, id):
         messages.add_message(request, messages.WARNING, 'Nenhum certificado foi gerado!')
 
     return redirect(reverse('certificados_evento', kwargs={'id': evento.id}))
+
+@login_required(login_url='/usuario/logar/')
+def buscar_certificado(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    if not evento.criador == request.user:
+        raise Http404('Este evento não lhe pertence!')
+    
+    email = request.POST.get('email')
+    certificado = Certificado.objects.filter(evento=evento).filter(participante__email=email).first()
+    if not certificado:
+        messages.add_message(request, messages.WARNING, 'Certificado não localizado!')
+        return redirect(reverse('certificados_evento', kwargs={'id': evento.id}))
+    
+    return redirect(certificado.certificado.url)

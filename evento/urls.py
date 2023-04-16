@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:id>/exportar_csv/', views.exportar_csv, name="exportar_csv"),
     path('<int:id>/certificados_evento/', views.certificados_evento, name="certificados_evento"),
     path('<int:id>/gerar_certificado/', views.gerar_certificado, name="gerar_certificado"),
+    path('<int:id>/buscar_certificado/', views.buscar_certificado, name="buscar_certificado")
 ]

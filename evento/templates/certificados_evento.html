@@ -39,7 +39,7 @@
 
         <div class="row">
             <h5>Buscar certificado</h5>
-            <form action="" method="">
+            <form action="{% url 'buscar_certificado' evento.id %}" method="POST">
                 <div class="d-flex">
                     <input type="email" class="form-control w-50" placeholder="Digite o e-mail" name="email">{% csrf_token %}
                     <input type="submit" value="BUSCAR" class="btn btn-primary ms-4">
