@@ -31,37 +31,20 @@
         {% endif %}
         <hr class="mt-0">
 
+        <div class="d-flex flex-column">
+            <h5 class="opacity-75 mb-3">Certificados para serem gerados: &nbsp;{{qtd_certificados}}</h5>
+            <a href="{% url 'gerar_certificado' evento.id %}" class="{% if qtd_certificados > 0 %}btn-principal{% else %}btn-desabilitado{% endif %} text-decoration-none mb-2 text-center" style="width: 26%">GERAR TODOS OS CERTIFICADOS</a>
+        </div>
+        <hr>
+
         <div class="row">
-            <h5 class="opacity-75 mb-3">{{evento.participantes.all.count}}&nbsp;Participantes</h5>
-            
-            <div class="col-md-4">
-                <table class="table table-borderless">
-                    <thead class="text-center text-white opacity-75">
-                        <tr>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-dark">
-                        {% for participante in participantes %}
-                        <tr class="tabela-linha text-white opacity-75">
-                            <td>{{participante.username}}</td>
-                            <td>{{participante.email}}</td>
-                        </tr>
-                        {% endfor %}       
-                    </tbody>
-                </table>
-                <br>
-                <div class="d-flex justify-content-around">
-                    <div>
-                        <p>{{participantes.all.count}} &nbsp;de &nbsp;{{evento.participantes.all.count}}</p>
-                    </div>
-                    <div>
-                        <a href="{% url 'exportar_csv' evento.id %}" class="btn-principal text-decoration-none">EXPORTAR EM CSV</a>
-                    </div>
+            <h5>Buscar certificado</h5>
+            <form action="" method="">
+                <div class="d-flex">
+                    <input type="email" class="form-control w-50" placeholder="Digite o e-mail" name="email">{% csrf_token %}
+                    <input type="submit" value="BUSCAR" class="btn btn-primary ms-4">
                 </div>
-            </div>
-        
+            </form>
         </div>
         
     </div>

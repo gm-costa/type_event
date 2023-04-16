@@ -7,8 +7,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
-from .models import Evento
+from .models import Certificado, Evento
 from django.db.models import Q
+from io import BytesIO  
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image, ImageDraw, ImageFont
+import sys
 
 
 @login_required(login_url='/usuario/logar/')
@@ -193,7 +197,6 @@ def participantes_evento(request, id):
     
     if request.method == "GET":
         participantes = evento.participantes.all()[:3]
-        print(participantes, len(participantes))
         return render(request, 'participantes_evento.html', {'evento': evento, 'participantes': participantes})
 
 @login_required(login_url='/usuario/logar/')
@@ -214,3 +217,56 @@ def exportar_csv(request, id):
             writer.writerow(x)
 
     return redirect(f'/media/{token}')
+
+@login_required(login_url='/usuario/logar/')
+def certificados_evento(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    if not evento.criador == request.user:
+        raise Http404('Este evento não lhe pertence!')
+    if request.method == "GET":
+        qtd_certificados = evento.participantes.all().count() - Certificado.objects.filter(evento=evento).count()
+        return render(request, 'certificados_evento.html', {'evento': evento, 'qtd_certificados': qtd_certificados})
+
+
+@login_required(login_url='/usuario/logar/')
+def gerar_certificado(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    if not evento.criador == request.user:
+        raise Http404('Este evento não lhe pertence!')
+
+    path_template = os.path.join(settings.BASE_DIR, 'templates/static/evento/img/template_certificado.png')
+    path_fonte = os.path.join(settings.BASE_DIR, 'templates/static/fontes/arimo.ttf')
+
+    contador = 0
+    for participante in evento.participantes.all():
+        if not Certificado.objects.filter(participante=participante).filter(evento=evento).exists():
+            img = Image.open(path_template)
+            draw = ImageDraw.Draw(img)
+            fonte_nome = ImageFont.truetype(path_fonte, 80)
+            fonte_info = ImageFont.truetype(path_fonte, 40)
+            draw.text((224, 630), f"{participante.username}", font=fonte_nome, fill=(0, 0, 0))
+            draw.text((761, 764), f"{evento.nome}", font=fonte_info, fill=(0, 0, 0))
+            draw.text((816, 834), f"{evento.carga_horaria} horas", font=fonte_info, fill=(0, 0, 0))
+            output = BytesIO()
+            img.save(output, format="PNG", quality=100)
+            output.seek(0)
+            img_final = InMemoryUploadedFile(output,
+                                            'ImageField',
+                                            f'{token_urlsafe(8)}.png',
+                                            'image/jpeg',
+                                            sys.getsizeof(output),
+                                            None)
+            certificado_gerado = Certificado(
+                certificado=img_final,
+                participante=participante,
+                evento=evento,
+            )
+            certificado_gerado.save()
+            contador += 1
+    
+    if contador > 0:
+        messages.add_message(request, messages.SUCCESS, 'Certificados gerados com sucesso.')
+    else:
+        messages.add_message(request, messages.WARNING, 'Nenhum certificado foi gerado!')
+
+    return redirect(reverse('certificados_evento', kwargs={'id': evento.id}))

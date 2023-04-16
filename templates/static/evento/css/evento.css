@@ -39,15 +39,13 @@ input[type="color"] {
 
 .btn-desabilitado {
     background-color: transparent;
-    /* border: 1px solid var(--contrast-color); */
-    /* color: white; */
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
-
-    /* background-color: transparent; */
     border: 1px solid #666;
     color: #666;    
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {
