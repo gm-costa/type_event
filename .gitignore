@@ -161,6 +161,8 @@ cython_debug/
 
 # Media directory
 media/
+media/logos/
+/media/logos/*
 
 # Utils
 reset_senha.py
