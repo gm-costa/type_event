@@ -214,7 +214,8 @@ def gerar_certificado(request, id):
             contador += 1
     
     if contador > 0:
-        messages.add_message(request, messages.SUCCESS, 'Certificados gerados com sucesso.')
+        msg = 'certificados gerados' if contador > 1 else 'certificado gerado'
+        messages.add_message(request, messages.SUCCESS, f'{contador} {msg}.')
     else:
         messages.add_message(request, messages.WARNING, 'Nenhum certificado foi gerado!')
 
