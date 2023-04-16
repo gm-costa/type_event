@@ -34,7 +34,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'lista_meus_eventos' %}">Meus eventos</a></li>
-                            <li><a class="dropdown-item" href="">Meus certificados</a></li>
+                            <li><a class="dropdown-item" href="{% url 'meus_certificados' %}">Meus certificados</a></li>
                             <li><a class="dropdown-item" href="{% url 'lista_minhas_participacoes' %}">Minhas participações</a></li>
                             <li><a class="dropdown-item" href="{% url 'lista_terceiros' %}">Eventos de terceiros</a></li>
                         </ul>
@@ -45,7 +45,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="">Usuário: &nbsp;<strong>{{request.user}}</strong></a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'sair' %}">Sair</a></li>
